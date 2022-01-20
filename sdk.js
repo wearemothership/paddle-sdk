@@ -128,7 +128,7 @@ class PaddleSDK {
 	 * Get the current list of plans for a subscription
 	 *
 	 * @method
-	 * @param {number} productID
+	 * @param {number} [productID]
 	 * @returns {Promise}
 	 * @fulfil {object} - The plans list
 	 *
@@ -145,7 +145,7 @@ class PaddleSDK {
 	 * Get the current list of users for a subscription plan
 	 *
 	 * @method
-	 * @param {number} planID
+	 * @param {number} [planID]
 	 * @returns {Promise}
 	 * @fulfil {object} - The users list
 	 *
@@ -321,6 +321,41 @@ class PaddleSDK {
 				plan_id: planID,
 				prorate,
 			},
+		});
+	}
+
+	/**
+	 * Update subscription details, quantity, price and or currency
+	 *
+	 * @method
+	 * @param {number} subscriptionID
+	 * @param {Object} postData { quantity, price, planID, currency }
+	 * @returns {Promise}
+	 * @fulfill {object} - The result of the operation
+	 *
+	 * @example
+	 * const result = await client.updateSubscriptionPlan(123, { quantity: 2 });
+	 */
+	updateSubscription(subscriptionID, postData) {
+		const { quantity, price, planID, currency } = postData;
+		const body = {
+			subscription_id: subscriptionID,
+		};
+		if (quantity) {
+			body.quantity = quantity;
+		}
+		if (price) {
+			body.recurring_price = price;
+		}
+		if (planID) {
+			body.plan_id = planID;
+		}
+		if (currency) {
+			body.currency = currency;
+		}
+
+		return this._request('/subscription/users/update', {
+			body: body,
 		});
 	}
 

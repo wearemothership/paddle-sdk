@@ -70,38 +70,38 @@ declare class PaddleSDK {
      * Get the current list of plans for a subscription
      *
      * @method
-     * @param {number} productID
+     * @param {number} [productID]
      * @returns {Promise}
      * @fulfil {object} - The plans list
      *
      * @example
      * const plans = await client.getProductPlans(123);
      */
-    getProductPlans(productID: number): Promise<any>;
+    getProductPlans(productID?: number): Promise<any>;
     /**
      * Get the current list of users for a subscription plan
      *
      * @method
-     * @param {number} planID
+     * @param {number} [planID]
      * @returns {Promise}
      * @fulfil {object} - The users list
      *
      * @example
      * const users = await client.getPlanUsers(123);
      */
-    getPlanUsers(planID: number): Promise<any>;
+    getPlanUsers(planID?: number): Promise<any>;
     /**
      * Get the list of payments for a subscription plan
      *
      * @method
-     * @param {number} planID
+     * @param {number} [planID]
      * @returns {Promise}
      * @fulfil {object} - The payments list
      *
      * @example
      * const payments = await client.getPlanPayments(123);
      */
-    getPlanPayments(planID: number): Promise<any>;
+    getPlanPayments(planID?: number): Promise<any>;
     /**
      * Get the list of webhooks history
      *
@@ -200,6 +200,19 @@ declare class PaddleSDK {
      * const result = await client.updateSubscriptionPlan(123);
      */
     updateSubscriptionPlan(subscriptionID: number, planID: number, prorate?: boolean): Promise<any>;
+    /**
+     * Update subscription details, quantity, price and or currency
+     *
+     * @method
+     * @param {number} subscriptionID
+     * @param {Object} postData { quantity, price, planID, currency }
+     * @returns {Promise}
+     * @fulfill {object} - The result of the operation
+     *
+     * @example
+     * const result = await client.updateSubscriptionPlan(123, { quantity: 2 });
+     */
+    updateSubscription(subscriptionID: number, postData: any): Promise<any>;
     /**
      * Cancels an active subscription
      *
